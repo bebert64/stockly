@@ -1,8 +1,15 @@
+from typing import List, Dict
+
+
 nb_intersections = int(input())
 arr1 = list(map(int, input().split()))
 
 
-def solution(shortcuts, nb_intersections):
+def solution(shortcuts: List[int], nb_intersections: int) -> List[int]:
+    """
+    Takes a list of shortcuts and a number of intersections and returns the
+    list of minimum energies needed.
+    """
     answers = [0] * nb_intersections
     shortcuts_dict = to_dict(shortcuts)
     for i in range(1, nb_intersections):
@@ -19,9 +26,9 @@ def solution(shortcuts, nb_intersections):
     return answers
 
 
-def to_dict(shortcuts):
+def to_dict(shortcuts: List[int]) -> Dict[int, List[int]]:
     """
-    Dict with origin point for each shortcut's ending.
+    Dict with origin points for each shortcut's ending.
 
     All values are re-normalized to origin = 0.
     """
@@ -34,7 +41,7 @@ def to_dict(shortcuts):
     return shortcuts_dict
 
 
-def retro_check(answers, i):
+def retro_check(answers: List[int], i: int) -> None:
     """Checks in opposite direction if shorter path is available by going backwards."""
     while i > 0 and (answers[i] <= answers[i-1] - 2):
         answers[i - 1] = answers[i] + 1
